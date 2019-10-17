@@ -1,16 +1,21 @@
 package com.hombrenieve.deliveries;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class Delivery {
     private String name;
-    private List products;
+    private List<String> products;
 
-    public Delivery(String name, String elements) {
-        products = new ArrayList<String>();
-
+    Delivery(String name, List<String> products) {
+        this.name = name;
+        this.products = products;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public List<String> getProducts() {
+        return products;
+    }
 }

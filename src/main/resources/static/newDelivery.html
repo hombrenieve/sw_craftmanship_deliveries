@@ -6,12 +6,12 @@
     <script src="js/newDelivery.js"></script>
 </head>
 <body>
-<form action="/addDelivery" method="post" id="newDeliveryForm">
-    <p><label>Nombre:<input type="text" name="name"/></label></p>
+<form action="/addDelivery" method="post" onsubmit="return validateForm()">
+    <p><label>Nombre:<input type="text" name="name" id="deliveryName"/></label></p>
     <button type="button" id="add" onclick="addItem()">Nuevo Elemento</button>
     <ul id="itemList">
     </ul>
-    <button type="submit">Enviar</button>
+    <input type="submit" value="Enviar"/>
 </form>
 
 </body>

@@ -7,10 +7,10 @@
 <body>
 <p>Listado de pedidos:</p>
 <ul>
-    <!--{{#deliveries}}
-    <li><a href="/deliveries/{{-index}}>{{name}}</a></li>
-    {{/deliveries}}-->
-    <li>Pedido de prueba 1</li>
+    {{#deliveries}}
+    <!--<li><a href="/deliveries/{{-index}}">{{name}}</a></li>-->
+    <li>{{name}}</li>
+    {{/deliveries}}
 </ul>
 
 <a href="/newDelivery.html">Nuevo pedido</a>
