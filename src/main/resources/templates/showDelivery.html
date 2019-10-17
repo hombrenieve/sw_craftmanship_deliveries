@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedido</title>
+</head>
+<body>
+<p>Nombre: {{delivery.name}}</p>
+<ul>
+    {{#delivery.products}}
+    <li>{{.}}</li>
+    {{/delivery.products}}
+</ul>
+<p><a href="/">Volver a pedidos</a></p>
+</body>
+</html>

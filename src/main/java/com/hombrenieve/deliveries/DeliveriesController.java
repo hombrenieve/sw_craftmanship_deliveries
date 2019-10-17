@@ -3,6 +3,7 @@ package com.hombrenieve.deliveries;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,7 +16,7 @@ public class DeliveriesController {
     private List<Delivery> deliveries = new ArrayList<>();
 
     @GetMapping("/")
-    public String deliveries(Model model) {
+    public String listDeliveries(Model model) {
         model.addAttribute("deliveries", deliveries);
         return "listDeliveries";
     }
@@ -26,5 +27,12 @@ public class DeliveriesController {
         deliveries.add(delivery);
         model.addAttribute("deliveries", deliveries);
         return "listDeliveries";
+    }
+
+    @GetMapping("/deliveries/{id}")
+    public String showDelivery(Model model, @PathVariable int id) {
+        Delivery delivery = deliveries.get(id-1);
+        model.addAttribute("delivery", delivery);
+        return "showDelivery";
     }
 }
