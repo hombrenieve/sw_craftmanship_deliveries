@@ -21,9 +21,10 @@ public class DeliveriesController {
     }
 
     @PostMapping("/addDelivery")
-    public String addDelivery(@RequestParam(name="name") String name, @RequestParam(name="item") List<String> items) {
+    public String addDelivery(Model model, @RequestParam(name="name") String name, @RequestParam(name="item") List<String> items) {
         Delivery delivery = new Delivery(name, items);
         deliveries.add(delivery);
+        model.addAttribute("deliveries", deliveries);
         return "listDeliveries";
     }
 }
