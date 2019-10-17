@@ -1,9 +1,22 @@
 function addItem() {
-    var text = document.getElementById('item');
-    if(text.value) {
-        document.getElementById('itemList').innerHTML += '<li class="list-item">'+text.value+'</li>';
-        text.value = '';
+    var list = document.getElementById('itemList');
+    list.appendChild(createItem());
+}
+
+function createNewElement(type, classValue, name) {
+    var item = document.createElement(type);
+    item.setAttribute('class', classValue);
+    if(name) {
+        item.setAttribute('name', name);
     }
+    return item;
+}
+
+function createItem() {
+    var root = createNewElement('li', 'list-item');
+    var input = createNewElement('input', 'item-element', 'item');
+    root.appendChild(input);
+    return root;
 }
 
 function completeForm() {
