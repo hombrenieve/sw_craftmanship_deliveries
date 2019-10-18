@@ -28,27 +28,21 @@ function setError(text) {
 }
 
 function validateForm() {
-    var name = document.getElementById('deliveryName');
-    console.log("Validating form");
-    if(name.value === '') {
+    if(document.getElementById('deliveryName').value === '') {
         setError('Pedido sin nombre!!');
-        console.log("no name");
         return false;
     }
     var items = document.getElementsByClassName('item-element');
     if(items.length === 0) {
         setError("Debes añadir productos!!!");
-        console.log('no products');
         return false;
     }
     for(var i = 0; i < items.length; i++) {
         if(items[i].value === '') {
             setError('Producto sin nombre!!');
-            console.log("no name in product "+i);
             return false;
         }
     }
-    console.log("Valid!");
 }
 
 function completeForm() {
