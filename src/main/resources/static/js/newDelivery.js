@@ -20,9 +20,12 @@ function createItem() {
 function setError(text) {
     var error = document.getElementById('error');
     if(!error) {
-        error = createNewElement('div', 'error');
-        error.setAttribute('id', 'error');
-        document.getElementsByTagName('body')[0].appendChild(error);
+        var root = createNewElement('div', 'error');
+        var paragraph = document.createElement("p");
+        paragraph.setAttribute('id', 'error');
+        root.appendChild(paragraph);
+        document.getElementsByTagName('body')[0].appendChild(root);
+        error = paragraph;
     }
     error.innerHTML = text;
 }
