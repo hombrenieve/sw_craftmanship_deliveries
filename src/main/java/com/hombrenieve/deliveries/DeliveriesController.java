@@ -1,38 +1,40 @@
 package com.hombrenieve.deliveries;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Controller
+@RestController
+@RequestMapping("/deliveries")
 public class DeliveriesController {
 
-    private List<Delivery> deliveries = new ArrayList<>();
+    @Autowired
+    private DeliveriesRepository repository;
 
-    @GetMapping("/")
-    public String listDeliveries(Model model) {
-        model.addAttribute("deliveries", deliveries);
-        return "listDeliveries";
+
+    @GetMapping
+    public List<Delivery> listDeliveries() {
+        return repository.findAll();
     }
 
-    @PostMapping("/addDelivery")
-    public String addDelivery(Model model, @RequestParam(name="name") String name, @RequestParam(name="item") List<String> items) {
+    @PostMapping
+    @ResponseStatus(code= HttpStatus.CREATED)
+    public Delivery addDelivery(@RequestParam(name="name") String name, @RequestParam(name="item") List<String> items) {
         Delivery delivery = new Delivery(name, items);
-        deliveries.add(delivery);
-        model.addAttribute("deliveries", deliveries);
-        return "listDeliveries";
+        return repository.save(delivery);
     }
 
-    @GetMapping("/deliveries/{id}")
-    public String showDelivery(Model model, @PathVariable int id) {
-        Delivery delivery = deliveries.get(id-1);
-        model.addAttribute("delivery", delivery);
-        return "showDelivery";
+    @GetMapping("{id}")
+    public ResponseEntity<Delivery> showDelivery(@PathVariable long id) {
+        Optional<Delivery> saved = repository.findById(id);
+        if(!saved.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(saved.get(), HttpStatus.OK);
     }
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de pedidos</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+<p>Listado de pedidos:</p>
+<ul id="listado">
+    <script>
+        $(function () {
+            $.getJSON('deliveries', function (data) {
+                $.each(data, function (key, value) {
+                    $("#listado").append('<li><a href="/deliveries/'+value['id']+'">'+value['name']+'</a></li>');
+                });
+            });
+        });
+    </script>
+</ul>
+
+<a href="/newDelivery.html">Nuevo pedido</a>
+</body>
+</html>
