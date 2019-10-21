@@ -3,7 +3,6 @@ package com.hombrenieve.deliveries;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,8 +23,7 @@ public class DeliveriesController {
 
     @PostMapping
     @ResponseStatus(code= HttpStatus.CREATED)
-    public Delivery addDelivery(@RequestParam(name="name") String name, @RequestParam(name="item") List<String> items) {
-        Delivery delivery = new Delivery(name, items);
+    public Delivery addDelivery(@RequestBody Delivery delivery) {
         return repository.save(delivery);
     }
 
