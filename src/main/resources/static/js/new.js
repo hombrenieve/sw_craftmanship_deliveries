@@ -34,7 +34,7 @@ function send() {
         timeout: 600000,
         success: function () {
             console.log("DONE");
-            location.href = 'list.html';
+            location.href = '/';
         },
         error: function (e) {
             console.log("ERROR: ", e);
