@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Lista de la compra</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="all,follow">
+  <!-- Bootstrap CSS-->
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+  <!-- Font Awesome CSS-->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+  <!-- Google fonts - Popppins for copy-->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
+  <!-- orion icons-->
+  <link rel="stylesheet" href="css/orionicons.css">
+  <!-- theme stylesheet-->
+  <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+  <!-- Custom stylesheet - for your changes-->
+  <link rel="stylesheet" href="css/custom.css">
+  <!-- Favicon-->
+  <link rel="shortcut icon" href="img/favicon.png?3">
+</head>
+
+<body>
+  <div class="d-flex align-items-stretch">
+    <div id="sidebar" class="sidebar py-3">
+      <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">Listas de
+        la compra</div>
+      <ul class="sidebar-menu list-unstyled">
+        <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i
+              class="o-survey-1 mr-3 text-gray"></i><span>Compra 1</span></a></li>
+        <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i
+              class="o-survey-1 mr-3 text-gray"></i><span>Compra 2</span></a></li>
+        <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i
+              class="o-survey-1 mr-3 text-gray"></i><span>Compra 3</span></a></li>
+        <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i
+              class="o-survey-1 mr-3 text-gray"></i><span>Compra 4</span></a></li>
+        <li class="sidebar-list-item"><a href="forms.html" class="sidebar-link text-muted"><i
+              class="fas fa-plus mr-3 text-gray"></i><span>Añadir</span></a></li>
+      </ul>
+    </div>
+    <div class="page-holder w-100 d-flex flex-wrap">
+      <div class="container-fluid px-xl-5">
+        <section class="py-5">
+          <div class="row">
+            <div class="col-lg-5 mb-5">
+              <div class="card">
+                <div class="card-header">
+                  <h3 class="h6 text-uppercase mb-0">Compra 1</h3>
+                </div>
+                <div class="card-body">
+                  <div class="form-group row">
+                    <div class="custom-control custom-checkbox">
+                      <input id="customCheck1" type="checkbox" class="custom-control-input">
+                      <label for="customCheck1" class="custom-control-label">Leche</label>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="custom-control custom-checkbox">
+                      <input id="customCheck2" type="checkbox" class="custom-control-input">
+                      <label for="customCheck2" class="custom-control-label">Huevos</label>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="custom-control custom-checkbox">
+                      <input id="customCheck3" type="checkbox" class="custom-control-input">
+                      <label for="customCheck3" class="custom-control-label">Pan bimbo</label>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-9 ml-auto">
+                      <button class="btn btn-primary"><i class="fas fa-edit"></i> Editar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+        <section class="py-5">
+          <div class="row">
+            <div class="col-lg-5 mb-5">
+              <div class="card">
+                <div class="card-header">
+                  <div class="col-md-4">
+                    <input type="text" placeholder="Nombre de la lista" class="form-control">
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="form-group">
+                    <div class="input-group mb-3 col-md-4">
+                      <input type="text" placeholder="Elemento de la lista" class="form-control">
+                      <div class="input-group-append">
+                        <button id="button-addon2" type="button" class="btn btn-primary"><i
+                            class="fas fa-trash"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-9 ml-auto">
+                      <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Añadir</button>
+                      <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </section>
+      </div>
+      <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-6 text-center text-md-left text-primary">
+              <p class="mb-2 mb-md-0">Pablo Rebaque Díaz &copy; 2019-2020</p>
+            </div>
+            <div class="col-md-6 text-center text-md-right text-gray-400">
+              <p class="mb-0">Design by <a href="https://bootstrapious.com/admin-templates"
+                  class="external text-gray-400">Bootstrapious</a></p>
+              <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- JavaScript files-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/popper.js/umd/popper.min.js"> </script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+  <script src="vendor/chart.js/Chart.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+  <script src="js/charts-home.js"></script>
+  <script src="js/front.js"></script>
+</body>
+
+</html>
