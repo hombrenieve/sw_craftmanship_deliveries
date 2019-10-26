@@ -22,22 +22,16 @@ function createElement(product) {
     return myElement;
 }
 
-function createButton(id) {
-    var editButton = getTemplate('#editButtonShowFormTemplate');
-    editButton.querySelector('button').setAttribute('onclick', 'editList('+id+')');
-    return editButton;
-}
-
 function showList(data) {
     console.log("Ready to write data " + JSON.stringify(data));
     var myForm = getTemplate('#listShowFormTemplate');
     myForm.querySelector('h3').innerHTML = data.name;
+    myForm.querySelector('button').setAttribute('onclick', 'editList('+data.id+')');
     data.products.forEach(function(product) {
         var myElement = createElement(product);
         console.log("Appending: "+myElement.firstElementChild.outerHTML);
-        myForm.querySelector('form').appendChild(myElement);
+        myForm.querySelector('form div').appendChild(myElement);
     });
-    myForm.querySelector('form').appendChild(createButton(data.id));
     console.log("Appending child: " + myForm.firstElementChild.outerHTML);
     document.querySelector('#listArea').appendChild(myForm);
 }
