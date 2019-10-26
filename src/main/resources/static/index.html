@@ -59,112 +59,25 @@
             </div>
             <section class="py-5" id="listArea">
                 <div class="row">
-                    <template id="listShowFormTemplate">
-                        <!-- Presentation Form -->
-                        <div class="col-lg-6 mb-5">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="h6 text-uppercase mb-0">Lista 4</h3>
-                                </div>
-                                <div class="card-body">
-                                    <form>
-                                        <div class="form-group row">
-                                            <div class="col-lg-6">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input id="customCheck1" type="checkbox"
-                                                           class="custom-control-input">
-                                                    <label for="customCheck1" class="custom-control-label">Leche</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="line"></div>
-                                        <div class="form-group">
-                                            <button class="btn btn-primary">Editar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
-                    <template id="listEditFormTemplate">
-                        <!-- Edit Form -->
-                        <div class="col-lg-6 mb-5">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="h6 text-uppercase mb-0">Editar lista</h3>
-                                </div>
-                                <div class="card-body">
-                                    <form class="form-horizontal">
-                                        <div class="form-group row">
-                                            <label class="col-md-3 form-control-label">Nombre</label>
-                                            <div class="col-md-9">
-                                                <input id="nombreLista" type="text" placeholder="Nombre de la lista"
-                                                       class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="line"></div>
-                                        <div class="form-group">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">
-                                                        <input type="checkbox">
-                                                    </div>
-                                                </div>
-                                                <input type="text" placeholder="Elemento de la lista"
-                                                       class="form-control">
-                                                <div class="input-group-append">
-                                                    <button id="button-addonN" type="button" class="btn btn-primary"><i
-                                                            class="fas fa-trash"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">
-                                                        <input type="checkbox">
-                                                    </div>
-                                                </div>
-                                                <input type="text" placeholder="Elemento de la lista"
-                                                       class="form-control">
-                                                <div class="input-group-append">
-                                                    <button id="button-addonN1" type="button" class="btn btn-primary"><i
-                                                            class="fas fa-trash"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <button class="btn btn-primary"><i class="fas fa-plus"></i> Añadir Elemento
-                                            </button>
-                                        </div>
-                                        <div class="line"></div>
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-secondary">Cancelar</button>
-                                            <button type="submit" class="btn btn-primary">Guardar</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </template>
+
                 </div>
-        </section>
-    </div>
-    <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6 text-center text-md-left text-primary">
-                    <p class="mb-2 mb-md-0">Pablo Rebaque Díaz &copy; 2019-2020</p>
-                </div>
-                <div class="col-md-6 text-center text-md-right text-gray-400">
-                    <p class="mb-0">Design by <a href="https://bootstrapious.com/admin-templates"
-                                                 class="external text-gray-400">Bootstrapious</a></p>
-                    <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+            </section>
+        </div>
+        <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-left text-primary">
+                        <p class="mb-2 mb-md-0">Pablo Rebaque Díaz &copy; 2019-2020</p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-right text-gray-400">
+                        <p class="mb-0">Design by <a href="https://bootstrapious.com/admin-templates"
+                                                     class="external text-gray-400">Bootstrapious</a></p>
+                        <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
-</div>
+        </footer>
+    </div>
 </div>
 <!-- JavaScript files-->
 <script src="vendor/jquery/jquery.min.js"></script>
@@ -175,7 +88,100 @@
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script src="bootstrapious/front.js"></script>
 <!-- Pablo Rebaque's addons -->
+<script src="js/common.js"></script>
 <script src="js/list.js"></script>
 <script src="js/show.js"></script>
+<template id="listShowFormTemplate">
+    <!-- Presentation Form -->
+    <div class="col-lg-6 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h6 text-uppercase mb-0"></h3>
+            </div>
+            <div class="card-body">
+                <form>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="listElementShowFormTemplate">
+    <div class="form-group row">
+        <div class="col-lg-6">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input">
+                <label class="custom-control-label"></label>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="editButtonShowFormTemplate">
+    <div class="line"></div>
+    <div class="form-group">
+        <button class="btn btn-primary">Editar</button>
+    </div>
+</template>
+<template id="listEditFormTemplate">
+    <!-- Edit Form -->
+    <div class="col-lg-6 mb-5">
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h6 text-uppercase mb-0">Editar lista</h3>
+            </div>
+            <div class="card-body">
+                <form class="form-horizontal">
+                    <div class="form-group row">
+                        <label class="col-md-3 form-control-label">Nombre</label>
+                        <div class="col-md-9">
+                            <input id="nombreLista" type="text" placeholder="Nombre de la lista"
+                                   class="form-control">
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox">
+                                </div>
+                            </div>
+                            <input type="text" placeholder="Elemento de la lista"
+                                   class="form-control">
+                            <div class="input-group-append">
+                                <button id="button-addonN" type="button" class="btn btn-primary"><i
+                                        class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <input type="checkbox">
+                                </div>
+                            </div>
+                            <input type="text" placeholder="Elemento de la lista"
+                                   class="form-control">
+                            <div class="input-group-append">
+                                <button id="button-addonN1" type="button" class="btn btn-primary"><i
+                                        class="fas fa-trash"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary"><i class="fas fa-plus"></i> Añadir Elemento
+                        </button>
+                    </div>
+                    <div class="line"></div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
 </body>
+
 </html>
