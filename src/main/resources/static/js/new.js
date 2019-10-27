@@ -1,18 +1,37 @@
-$(function() {
-    $("#deliveryName").on("change paste keyup select", function () {
-        console.log('Key pressed');
-        if($(this).val().length > 0) {
-            $('#send').attr('disabled', false);
-        } else {
-            $('#send').attr('disabled', true);
-        }
-    });
-});
-
-function addItem() {
-    $('#itemList').append('<li><input class="list-item"/></li>');
+function newList(originalData) {
+    //Show window
+    emptyWindow();
+    var newForm = getTemplate('#listEditFormTemplate');
+    newForm.addEventListener('changed', checkForm);
+    if(originalData) {
+        fillInEditFormTemplate(newForm, originalData);
+    }
+    $('#listArea').append(newForm);
 }
 
+function fillInEditFormTemplate(form, data) {
+    console.log('Fill Template');
+}
+
+function checkForm(event) {
+    console.log("Checking form due to element: "+event.target);
+}
+
+function addItem() {
+    var newElement = getTemplate('#listEditElementTemplate');
+    var item = newElement.firstElementChild;
+    newElement.querySelector('button').addEventListener("click", function() {
+        deleteItem(item);
+    });
+    $('#newElementsArea').append(newElement);
+}
+
+function deleteItem(item) {
+    $(item).remove();
+}
+
+
+//........
 function send() {
     var products = [];
     $('.list-item').each(function() {

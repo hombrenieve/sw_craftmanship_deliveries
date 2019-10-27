@@ -41,7 +41,7 @@
         <ul class="sidebar-menu list-unstyled" id="shoppingLists">
         </ul>
         <ul class="sidebar-menu list-unstyled">
-            <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i
+            <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted" onclick="newList()"><i
                     class="fas fa-plus mr-3 text-gray"></i><span>Añadir</span></a></li>
         </ul>
     </div>
@@ -91,6 +91,7 @@
 <script src="js/common.js"></script>
 <script src="js/list.js"></script>
 <script src="js/show.js"></script>
+<script src="js/new.js"></script>
 <template id="sidebarShoppingList">
     <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted"><i class="o-survey-1 mr-3 text-gray"></i><span></span></a></li>
 </template>
@@ -108,7 +109,8 @@
                     </div>
                     <div class="line"></div>
                     <div class="form-group">
-                        <button class="btn btn-primary">Editar</button>
+                        <button type="button" class="btn btn-danger" id="deleteList">Borrar</button>
+                        <button type="button" class="btn btn-primary" id="editList">Editar</button>
                     </div>
                 </form>
             </div>
@@ -119,7 +121,7 @@
     <div class="form-group row">
         <div class="col-lg-6">
             <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input">
+                <input type="checkbox" class="custom-control-input" disabled>
                 <label class="custom-control-label"></label>
             </div>
         </div>
@@ -142,46 +144,34 @@
                         </div>
                     </div>
                     <div class="line"></div>
+                    <div id="newElementsArea"></div>
                     <div class="form-group">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox">
-                                </div>
-                            </div>
-                            <input type="text" placeholder="Elemento de la lista"
-                                   class="form-control">
-                            <div class="input-group-append">
-                                <button id="button-addonN" type="button" class="btn btn-primary"><i
-                                        class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <div class="input-group-text">
-                                    <input type="checkbox">
-                                </div>
-                            </div>
-                            <input type="text" placeholder="Elemento de la lista"
-                                   class="form-control">
-                            <div class="input-group-append">
-                                <button id="button-addonN1" type="button" class="btn btn-primary"><i
-                                        class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-primary"><i class="fas fa-plus"></i> Añadir Elemento
+                        <button type="button" class="btn btn-primary" onclick="addItem()"><i class="fas fa-plus"></i> Añadir Elemento
                         </button>
                     </div>
                     <div class="line"></div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-secondary">Cancelar</button>
-                        <button type="submit" class="btn btn-primary">Guardar</button>
+                        <button type="button" class="btn btn-secondary" onclick="window.location.href='/'">Cancelar</button>
+                        <button type="button" class="btn btn-primary" id="saveList" disabled>Guardar</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="listEditElementTemplate">
+    <div class="form-group">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <div class="input-group-text">
+                    <input type="checkbox">
+                </div>
+            </div>
+            <input type="text" placeholder="Elemento de la lista"
+                   class="form-control">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-primary"><i
+                        class="fas fa-trash"></i></button>
             </div>
         </div>
     </div>
