@@ -22,8 +22,8 @@ function showList(data) {
     console.log("Ready to write data " + JSON.stringify(data));
     var myForm = getTemplate('#listShowFormTemplate');
     myForm.querySelector('h3').innerHTML = data.name;
-    myForm.querySelector('#deleteList').setAttribute('onclick', 'deleteList('+data.id+')');
-    myForm.querySelector('#editList').setAttribute('onclick', 'editList('+data.id+')');
+    myForm.querySelector('#deleteList').addEventListener('click', function() { deleteList(data.id); });
+    myForm.querySelector('#editList').addEventListener('click', function() { editList(data.id); });
     data.products.forEach(function(product) {
         var myElement = createElement(product);
         console.log("Appending: "+myElement.firstElementChild.outerHTML);
@@ -39,4 +39,19 @@ function editList(identifier) {
 
 function deleteList(identifier) {
     console.log('Deleting list: '+identifier);
+
+    $.ajax({
+        type: "DELETE",
+        contentType: "application/json",
+        url: "/shoppinglist/"+identifier,
+        timeout: 600000,
+        success: function () {
+            console.log("DONE");
+            location.href = '/';
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+            display(e);
+        }
+    });
 }
