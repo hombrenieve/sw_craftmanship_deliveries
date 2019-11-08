@@ -1,4 +1,4 @@
-package com.hombrenieve.deliveries;
+package com.hombrenieve.shoppinglist;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

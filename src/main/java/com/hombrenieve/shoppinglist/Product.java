@@ -1,9 +1,10 @@
-package com.hombrenieve.deliveries;
+package com.hombrenieve.shoppinglist;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Entity
 public class Product {
@@ -46,4 +47,18 @@ public class Product {
     public void setMark(boolean mark) {
         this.mark = mark;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return getId() == product.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
 }
