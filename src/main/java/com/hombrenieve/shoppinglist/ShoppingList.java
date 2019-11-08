@@ -1,23 +1,24 @@
-package com.hombrenieve.deliveries;
+package com.hombrenieve.shoppinglist;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Delivery {
+public class ShoppingList {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String name;
-    @OneToMany(cascade = CascadeType.ALL)
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
 
-    public Delivery() {
+    public ShoppingList() {
     }
 
-    public Delivery(String name, List<String> products) {
+    public ShoppingList(String name, List<String> products) {
         this.name = name;
         this.products = new ArrayList<>();
         for(String product: products) {
