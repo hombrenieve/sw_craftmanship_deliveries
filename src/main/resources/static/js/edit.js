@@ -66,7 +66,7 @@ function sendList() {
     $.ajax({
         type: "POST",
         contentType: "application/json",
-        url: "/deliveries",
+        url: "/shoppinglist",
         data: JSON.stringify(delivery),
         dataType: 'json',
         timeout: 600000,

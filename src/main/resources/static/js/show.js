@@ -1,7 +1,7 @@
 function showShoppingList(id) {
     console.log("Will show list with id: "+id);
     //take data
-    $.getJSON('deliveries/'+id, function (data) {
+    $.getJSON('shoppinglist/'+id, function (data) {
         emptyWindow();
         showList(data);
     });

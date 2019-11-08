@@ -1,5 +1,5 @@
 $(function () {
-    $.getJSON('deliveries', function (data) {
+    $.getJSON('shoppinglist', function (data) {
         $.each(data, function (key, value) {
             var sideBarItem = getTemplate('#sidebarShoppingList');
             sideBarItem.querySelector('a').setAttribute('onclick', 'showShoppingList('+value.id+')');
