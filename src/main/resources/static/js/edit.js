@@ -102,7 +102,7 @@ function sendList() {
             timeout: 600000,
             success: function () {
                 console.log("DONE");
-                location.href = '/';
+                showShoppingList(delivery.id);
             },
             error: function (e) {
                 console.log("ERROR: ", e);
