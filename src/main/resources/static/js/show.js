@@ -23,7 +23,7 @@ function showList(data) {
     var myForm = getTemplate('#listShowFormTemplate');
     myForm.querySelector('h3').innerHTML = data.name;
     myForm.querySelector('#deleteList').addEventListener('click', function() { deleteList(data.id); });
-    myForm.querySelector('#editList').addEventListener('click', function() { editList(data.id); });
+    myForm.querySelector('#editList').addEventListener('click', function() { editList(data); });
     data.products.forEach(function(product) {
         var myElement = createElement(product);
         console.log("Appending: "+myElement.firstElementChild.outerHTML);
@@ -33,8 +33,9 @@ function showList(data) {
     $('#listArea').append(myForm);
 }
 
-function editList(identifier) {
-    console.log('Editing list: '+identifier);
+function editList(data) {
+    console.log('Editing list: '+JSON.stringify(data));
+    newList(data);
 }
 
 function deleteList(identifier) {
