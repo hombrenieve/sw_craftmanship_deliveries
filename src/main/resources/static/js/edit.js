@@ -1,34 +1,76 @@
-function newList(originalData) {
+function editList(originalData) {
     //Show window
     emptyWindow();
-    var newForm = getTemplate('#listEditFormTemplate');
-    newForm.querySelector('#listName').addEventListener('keyup', checkForm);
-    if(originalData) {
-        fillInEditFormTemplate(newForm, originalData);
-    }
-    $('#listArea').append(newForm);
-    checkForm();
+    var editList = new EditList();
+    editList.fillInEditFormTemplate(originalData);
+    editList.show();
+    EditList.checkForm();
 }
 
-function fillInElement(elementForm, product) {
-    $('.listElement', elementForm).val(product.name);
-    $('.listCheckbox', elementForm).prop('checked', product.mark);
-    $('.elemId', elementForm).val(product.id);
+function newList() {
+    //Show window
+    emptyWindow();
+    var editList = new EditList();
+    editList.show();
 }
 
-function fillInEditFormTemplate(form, data) {
-    console.log('Fill Template with: '+JSON.stringify(data));
-    $('#listName', form).val(data.name);
-    $('#listId', form).val(data.id);
-
-    data.products.forEach(function(product) {
-        var element = createEmptyItem();
-        fillInElement(element, product);
-        $('#newElementsArea', form).append(element);
+function EditList() {
+    this.form = getTemplate('#listEditFormTemplate');
+    this.form.querySelector('#listName').addEventListener('keyup', function() {
+        EditList.checkForm();
+    });
+    this.form.querySelector('#addItemButton').addEventListener('click', function() {
+        EditList.addItem()
     });
 }
 
-function isValidForm() {
+EditList.fillInElement = function(element, product) {
+    $('.listElement', element).val(product.name);
+    $('.listCheckbox', element).prop('checked', product.mark);
+    $('.elemId', element).val(product.id);
+}
+
+EditList.prototype.fillInEditFormTemplate = function(data) {
+    console.log('Fill Template with: '+JSON.stringify(data));
+    $('#listName', this.form).val(data.name);
+    $('#listId', this.form).val(data.id);
+    var objThis = this;
+    data.products.forEach(function(product) {
+        var element = EditList.createEmptyItem();
+        EditList.fillInElement(element, product);
+        $('#newElementsArea', objThis.form).append(element);
+    });
+}
+
+EditList.createEmptyItem = function() {
+    var newElement = getTemplate('#listEditElementTemplate');
+    var item = newElement.firstElementChild;
+    newElement.querySelector('button').addEventListener('click', function() {
+        EditList.deleteItem(item);
+    });
+    newElement.querySelector('.listElement').addEventListener('keyup', function() {
+        EditList.checkForm();
+    });
+    return newElement;
+}
+
+EditList.deleteItem = function(item) {
+    $(item).remove();
+    EditList.checkForm();
+}
+
+EditList.addItem = function() {
+    var newElement = this.createEmptyItem();
+    $('#newElementsArea').append(newElement);
+    EditList.checkForm();
+}
+
+EditList.prototype.show = function() {
+    $('#listArea').append(this.form);
+}
+
+
+EditList.isValidForm = function(){
     if($('#listName').val() == "") {
         return false;
     }
@@ -42,32 +84,11 @@ function isValidForm() {
     return !inValid;
 }
 
-function checkForm() {
-    document.getElementById('saveList').disabled = !isValidForm();
+EditList.checkForm = function() {
+    $('#saveList').prop('disabled', !EditList.isValidForm());
 }
 
-function createEmptyItem() {
-    var newElement = getTemplate('#listEditElementTemplate');
-    var item = newElement.firstElementChild;
-    newElement.querySelector('button').addEventListener("click", function() {
-        deleteItem(item);
-    });
-    newElement.querySelector('.listElement').addEventListener('keyup', checkForm);
-    return newElement;
-}
-
-function addItem() {
-    var newElement = createEmptyItem();
-    $('#newElementsArea').append(newElement);
-    checkForm();
-
-}
-
-function deleteItem(item) {
-    $(item).remove();
-}
-
-function sendList() {
+EditList.getJson = function() {
     var products = [];
     $('.listElement').each(function() {
         if($(this).val()) {
@@ -83,48 +104,57 @@ function sendList() {
             products.push(product);
         }
     });
-    var delivery = { 'name': $('#listName').val(),
-        "products": products
+    return {
+        'name': $('#listName').val(),
+        'products': products
     };
+}
+
+function sendList() {
+    var objList = EditList.getJson();
     var deliveryId = $('#listId').val();
     if(deliveryId) {
-        delivery.id = deliveryId;
-    }
-    console.log("To send: "+JSON.stringify(delivery));
-
-    if(deliveryId) {
-        $.ajax({
-            type: "PUT",
-            contentType: "application/json",
-            url: "/shoppinglist/"+delivery.id,
-            data: JSON.stringify(delivery),
-            dataType: 'json',
-            timeout: 600000,
-            success: function () {
-                console.log("DONE");
-                showShoppingList(delivery.id);
-            },
-            error: function (e) {
-                console.log("ERROR: ", e);
-                display(e);
-            }
-        });
+        objList.id = deliveryId;
+        modifyList(objList);
     } else {
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "/shoppinglist",
-            data: JSON.stringify(delivery),
-            dataType: 'json',
-            timeout: 600000,
-            success: function () {
-                console.log("DONE");
-                location.href = '/';
-            },
-            error: function (e) {
-                console.log("ERROR: ", e);
-                display(e);
-            }
-        });
+        postNewList(objList);
     }
+}
+
+function postNewList(newList) {
+    $.ajax({
+        type: "POST",
+        contentType: "application/json",
+        url: "/shoppinglist",
+        data: JSON.stringify(newList),
+        dataType: 'json',
+        timeout: 600000,
+        success: function () {
+            console.log("DONE");
+            location.href = '/';
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+            display(e);
+        }
+    });
+}
+
+function modifyList(modifiedList) {
+    $.ajax({
+        type: "PUT",
+        contentType: "application/json",
+        url: "/shoppinglist/"+modifiedList.id,
+        data: JSON.stringify(modifiedList),
+        dataType: 'json',
+        timeout: 600000,
+        success: function () {
+            console.log("DONE");
+            showShoppingList(modifiedList.id);
+        },
+        error: function (e) {
+            console.log("ERROR: ", e);
+            display(e);
+        }
+    });
 }
