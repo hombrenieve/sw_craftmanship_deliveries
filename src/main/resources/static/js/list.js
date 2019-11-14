@@ -1,5 +1,14 @@
 $(function () {
+    showShoppingLists();
+});
+
+function emptySideBar() {
+    $("#shoppingLists").empty();
+}
+
+function showShoppingLists() {
     $.getJSON('shoppinglist', function (data) {
+        emptySideBar();
         $.each(data, function (key, value) {
             var sideBarItem = getTemplate('#sidebarShoppingList');
             sideBarItem.querySelector('a').setAttribute('onclick', 'showShoppingList('+value.id+')');
@@ -7,4 +16,4 @@ $(function () {
             $("#shoppingLists").append(sideBarItem);
         });
     });
-});
+}

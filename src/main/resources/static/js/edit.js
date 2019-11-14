@@ -115,42 +115,24 @@ function sendList() {
     var deliveryId = $('#listId').val();
     if(deliveryId) {
         objList.id = deliveryId;
-        modifyList(objList);
+        sendListToBackend(objList, "PUT", "/shoppinglist/"+deliveryId);
     } else {
-        postNewList(objList);
+        sendListToBackend(objList, "POST", "/shoppinglist");
     }
 }
 
-function postNewList(newList) {
+function sendListToBackend(newList, method, url) {
     $.ajax({
-        type: "POST",
+        type: method,
         contentType: "application/json",
-        url: "/shoppinglist",
+        url: url,
         data: JSON.stringify(newList),
         dataType: 'json',
         timeout: 600000,
-        success: function () {
+        success: function (data) {
             console.log("DONE");
-            location.href = '/';
-        },
-        error: function (e) {
-            console.log("ERROR: ", e);
-            display(e);
-        }
-    });
-}
-
-function modifyList(modifiedList) {
-    $.ajax({
-        type: "PUT",
-        contentType: "application/json",
-        url: "/shoppinglist/"+modifiedList.id,
-        data: JSON.stringify(modifiedList),
-        dataType: 'json',
-        timeout: 600000,
-        success: function () {
-            console.log("DONE");
-            showShoppingList(modifiedList.id);
+            showShoppingLists();
+            showShoppingList(data.id);
         },
         error: function (e) {
             console.log("ERROR: ", e);
