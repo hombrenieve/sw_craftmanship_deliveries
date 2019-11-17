@@ -1,10 +1,12 @@
 function showShoppingList(id) {
-    //take data
-    $.getJSON('shoppinglist/'+id, function (data) {
-        emptyWindow();
-        let listToShow = new ShowList(data);
-        listToShow.show();
-    });
+    fetch('shoppinglist/' + id)
+        .then(response => response.json())
+        .then(function (data) {
+            emptyWindow();
+            let listToShow = new ShowList(data);
+            listToShow.show();
+        })
+        .catch(error => log.error("Retrieving shopping list", error));
 }
 
 class ShowList {
@@ -35,17 +37,14 @@ class ShowList {
 
 function deleteList(identifier) {
     if(confirm("¿Seguro que quiere borrar la lista?")) {
-        $.ajax({
-            type: "DELETE",
-            contentType: "application/json",
-            url: "/shoppinglist/" + identifier,
-            timeout: 600000,
-            success: function () {
-                location.href = '/';
-            },
-            error: function (e) {
-                display(e);
-            }
-        });
+        fetch("/shoppinglist/" + identifier, {
+            method: 'DELETE'
+        })
+            .then(function (response) {
+                if (response.ok) {
+                    location.href = '/';
+                }
+            })
+            .catch(error => console.error("Deleting list " + identifier, error));
     }
 }

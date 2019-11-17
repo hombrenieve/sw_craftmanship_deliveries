@@ -123,19 +123,17 @@ function sendList() {
 }
 
 function sendListToBackend(newList, method, url) {
-    $.ajax({
-        type: method,
-        contentType: "application/json",
-        url: url,
-        data: JSON.stringify(newList),
-        dataType: 'json',
-        timeout: 600000,
-        success: function (data) {
+    fetch(url, {
+        method: method,
+        body: JSON.stringify(newList),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then((data) => {
             showShoppingLists();
             showShoppingList(data.id);
-        },
-        error: function (e) {
-            display(e);
-        }
-    });
+        })
+        .catch(error => console.error("Sending list", error));
 }
