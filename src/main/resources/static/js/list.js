@@ -7,12 +7,12 @@ function emptySideBar() {
 }
 
 function showShoppingLists() {
-    $.getJSON('shoppinglist', function (data) {
+    $.getJSON('shoppinglist', function(data) {
         emptySideBar();
-        $.each(data, function (key, value) {
-            var sideBarItem = getTemplate('#sidebarShoppingList');
-            sideBarItem.querySelector('a').setAttribute('onclick', 'showShoppingList('+value.id+')');
-            sideBarItem.querySelector('span').innerHTML = value.name;
+        $.each(data, function(key, value) {
+            let sideBarItem = getTemplate('#sidebarShoppingList');
+            $('a', sideBarItem).click(() => showShoppingList(value.id));
+            $('span', sideBarItem).text(value.name);
             $("#shoppingLists").append(sideBarItem);
         });
     });

@@ -1,7 +1,7 @@
 function editList(originalData) {
     //Show window
     emptyWindow();
-    var editList = new EditList();
+    let editList = new EditList();
     editList.fillInEditFormTemplate(originalData);
     editList.show();
     EditList.checkForm();
@@ -10,109 +10,110 @@ function editList(originalData) {
 function newList() {
     //Show window
     emptyWindow();
-    var editList = new EditList();
+    let editList = new EditList();
     editList.show();
 }
 
-function EditList() {
-    this.form = getTemplate('#listEditFormTemplate');
-    this.form.querySelector('#listName').addEventListener('keyup', function() {
-        EditList.checkForm();
-    });
-    this.form.querySelector('#addItemButton').addEventListener('click', function() {
-        EditList.addItem()
-    });
-}
-
-EditList.fillInElement = function(element, product) {
-    $('.listElement', element).val(product.name);
-    $('.listCheckbox', element).prop('checked', product.mark);
-    $('.elemId', element).val(product.id);
-}
-
-EditList.prototype.fillInEditFormTemplate = function(data) {
-    console.log('Fill Template with: '+JSON.stringify(data));
-    $('#listName', this.form).val(data.name);
-    $('#listId', this.form).val(data.id);
-    var objThis = this;
-    data.products.forEach(function(product) {
-        var element = EditList.createEmptyItem();
-        EditList.fillInElement(element, product);
-        $('#newElementsArea', objThis.form).append(element);
-    });
-}
-
-EditList.createEmptyItem = function() {
-    var newElement = getTemplate('#listEditElementTemplate');
-    var item = newElement.firstElementChild;
-    newElement.querySelector('button').addEventListener('click', function() {
-        EditList.deleteItem(item);
-    });
-    newElement.querySelector('.listElement').addEventListener('keyup', function() {
-        EditList.checkForm();
-    });
-    return newElement;
-}
-
-EditList.deleteItem = function(item) {
-    $(item).remove();
-    EditList.checkForm();
-}
-
-EditList.addItem = function() {
-    var newElement = this.createEmptyItem();
-    $('#newElementsArea').append(newElement);
-    EditList.checkForm();
-}
-
-EditList.prototype.show = function() {
-    $('#listArea').append(this.form);
-}
-
-
-EditList.isValidForm = function(){
-    if($('#listName').val() == "") {
-        return false;
+class EditList {
+    constructor() {
+        this.form = getTemplate('#listEditFormTemplate');
+        $('#listName', this.form).keyup(() => EditList.checkForm());
+        $('#addItemButton', this.form).click(() => EditList.addItem());
+        $('#saveList', this.form).click(sendList);
+        $('#cancelList', this.form).click(function() {
+            let id = $('#listId').val();
+            if(id) {
+                showShoppingList(id)
+            } else {
+                location.href='/';
+            }
+        });
     }
-    var inValid = false;
-    $('.listElement').each(function() {
-        if($(this).val() == "") {
-            inValid = true;
+
+   static fillInElement(element, product) {
+        $('.listElement', element).val(product.name);
+        $('.listCheckbox', element).prop('checked', product.mark);
+        $('.elemId', element).val(product.id);
+    }
+
+    fillInEditFormTemplate(data) {
+        $('#listName', this.form).val(data.name);
+        $('#listId', this.form).val(data.id);
+        let objThis = this;
+        data.products.forEach(function (product) {
+            let element = EditList.createEmptyItem();
+            EditList.fillInElement(element, product);
+            $('#newElementsArea', objThis.form).append(element);
+        });
+    }
+
+    static createEmptyItem() {
+        let newElement = getTemplate('#listEditElementTemplate');
+        let item = newElement.firstElementChild;
+        $('button', newElement).click(() => EditList.deleteItem(item));
+        $('.listElement', newElement).keyup(() => EditList.checkForm());
+        return newElement;
+    }
+
+    static deleteItem(item) {
+        $(item).remove();
+        EditList.checkForm();
+    }
+
+    static addItem() {
+        let newElement = this.createEmptyItem();
+        $('#newElementsArea').append(newElement);
+        EditList.checkForm();
+    }
+
+    show() {
+        $('#listArea').append(this.form);
+    }
+
+
+    static isValidForm() {
+        if ($('#listName').val() == "") {
             return false;
         }
-    });
-    return !inValid;
-}
-
-EditList.checkForm = function() {
-    $('#saveList').prop('disabled', !EditList.isValidForm());
-}
-
-EditList.getJson = function() {
-    var products = [];
-    $('.listElement').each(function() {
-        if($(this).val()) {
-            var product = {
-                name: $(this).val(),
-                mark: $('.listCheckbox', $(this).parent()).prop('checked')
-            };
-            var id = $('.elemId', $(this).parent()).val();
-            console.log(id);
-            if(id) {
-                product.id = id;
+        let inValid = false;
+        $('.listElement').each(function () {
+            if ($(this).val() == "") {
+                inValid = true;
+                return false;
             }
-            products.push(product);
-        }
-    });
-    return {
-        'name': $('#listName').val(),
-        'products': products
-    };
+        });
+        return !inValid;
+    }
+
+    static checkForm() {
+        $('#saveList').prop('disabled', !EditList.isValidForm());
+    }
+
+    static getJson() {
+        let products = [];
+        $('.listElement').each(function () {
+            if ($(this).val()) {
+                let product = {
+                    name: $(this).val(),
+                    mark: $('.listCheckbox', $(this).parent()).prop('checked')
+                };
+                let id = $('.elemId', $(this).parent()).val();
+                if (id) {
+                    product.id = id;
+                }
+                products.push(product);
+            }
+        });
+        return {
+            'name': $('#listName').val(),
+            'products': products
+        };
+    }
 }
 
 function sendList() {
-    var objList = EditList.getJson();
-    var deliveryId = $('#listId').val();
+    let objList = EditList.getJson();
+    let deliveryId = $('#listId').val();
     if(deliveryId) {
         objList.id = deliveryId;
         sendListToBackend(objList, "PUT", "/shoppinglist/"+deliveryId);
@@ -130,12 +131,10 @@ function sendListToBackend(newList, method, url) {
         dataType: 'json',
         timeout: 600000,
         success: function (data) {
-            console.log("DONE");
             showShoppingLists();
             showShoppingList(data.id);
         },
         error: function (e) {
-            console.log("ERROR: ", e);
             display(e);
         }
     });
