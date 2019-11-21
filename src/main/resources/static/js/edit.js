@@ -1,10 +1,19 @@
 function editList(originalData) {
     //Show window
     emptyWindow();
-    let editList = new EditList();
-    editList.fillInEditFormTemplate(originalData);
+    let editList = new EditList(originalData);
     editList.show();
     EditList.checkForm();
+}
+
+function editListById(id, onSuccess) {
+    fetch('shoppinglist/' + id)
+        .then(response => response.json())
+        .then(function (data) {
+            editList(data);
+            if(onSuccess) onSuccess();
+        })
+        .catch(error => console.error("Retrieving shopping list", error));
 }
 
 function newList() {
@@ -15,19 +24,19 @@ function newList() {
 }
 
 class EditList {
-    constructor() {
+    constructor(data) {
         this.form = getTemplate('#listEditFormTemplate');
         $('#listName', this.form).keyup(() => EditList.checkForm());
         $('#addItemButton', this.form).click(() => EditList.addItem());
         $('#saveList', this.form).click(sendList);
-        $('#cancelList', this.form).click(function() {
-            let id = $('#listId').val();
-            if(id) {
-                showShoppingList(id)
-            } else {
-                location.href='/';
-            }
-        });
+        if(data) {
+            $('#deleteList', this.form).click(() => EditList.deleteList(data.id));
+            $('#cancelList', this.form).click(() => editListById(data.id));
+            this.fillInEditFormTemplate(data);
+        } else {
+            $('#deleteList', this.form).prop('disabled', true);
+            $('#cancelList', this.form).click(() => location.href='/');
+        }
     }
 
    static fillInElement(element, product) {
@@ -58,6 +67,20 @@ class EditList {
     static deleteItem(item) {
         $(item).remove();
         EditList.checkForm();
+    }
+
+    static deleteList(id) {
+        if(confirm("¿Seguro que quiere borrar la lista?")) {
+            fetch("/shoppinglist/" + id, {
+                method: 'DELETE'
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        location.href = '/';
+                    }
+                })
+                .catch(error => console.error("Deleting list " + id, error));
+        }
     }
 
     static addItem() {
@@ -122,7 +145,14 @@ function sendList() {
     }
 }
 
+
 function sendListToBackend(newList, method, url) {
+    let showMsg = function(selector, timeout) {
+        $(selector).removeClass('invisible');
+        setTimeout(function() { $(selector).addClass('invisible'); }, timeout);
+    }
+
+
     fetch(url, {
         method: method,
         body: JSON.stringify(newList),
@@ -133,7 +163,7 @@ function sendListToBackend(newList, method, url) {
         .then(response => response.json())
         .then((data) => {
             showShoppingLists();
-            showShoppingList(data.id);
+            editListById(data.id, () => showMsg('#success-msg', 3000));
         })
         .catch(error => console.error("Sending list", error));
 }

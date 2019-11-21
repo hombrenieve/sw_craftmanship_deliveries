@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hombrenieve</groupId>
-    <artifactId>deliveries</artifactId>
+    <artifactId>ShoppingList</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>deliveries</name>
-    <description>SW Craftmanship Web Architecture practice</description>
+    <name>ShoppingList</name>
+    <description>SW Craftsmanship Web Architecture practice</description>
 
     <properties>
         <java.version>1.8</java.version>

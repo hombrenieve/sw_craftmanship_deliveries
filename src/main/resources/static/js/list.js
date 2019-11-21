@@ -1,4 +1,5 @@
 $(function () {
+    $('#newListButton').click(newList);
     showShoppingLists();
 });
 
@@ -13,7 +14,7 @@ function showShoppingLists() {
             emptySideBar();
             $.each(data, function (key, value) {
                 let sideBarItem = getTemplate('#sidebarShoppingList');
-                $('a', sideBarItem).click(() => showShoppingList(value.id));
+                $('a', sideBarItem).click(() => editListById(value.id));
                 $('span', sideBarItem).text(value.name);
                 $("#shoppingLists").append(sideBarItem);
             });

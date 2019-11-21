@@ -41,7 +41,7 @@
         <ul class="sidebar-menu list-unstyled" id="shoppingLists">
         </ul>
         <ul class="sidebar-menu list-unstyled">
-            <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted" onclick="newList()"><i
+            <li class="sidebar-list-item"><a href="#" class="sidebar-link text-muted" id="newListButton"><i
                     class="fas fa-plus mr-3 text-gray"></i><span>Añadir</span></a></li>
         </ul>
     </div>
@@ -110,7 +110,6 @@
                     </div>
                     <div class="line"></div>
                     <div class="form-group">
-                        <button type="button" class="btn btn-danger" id="deleteList">Borrar</button>
                         <button type="button" class="btn btn-primary" id="editList">Editar</button>
                     </div>
                 </form>
@@ -154,7 +153,12 @@
                     <div class="line"></div>
                     <div class="form-group">
                         <button type="button" class="btn btn-secondary" id="cancelList">Cancelar</button>
-                        <button type="button" class="btn btn-primary" id="saveList" disabled>Guardar</button>
+                        <button type="button" class="btn btn-danger" id="deleteList">Borrar</button>
+                        <button type="button" class="btn btn-primary" id="saveList">Guardar</button>
+                    </div>
+                    <div>
+                        <p class="text-muted invisible" id="success-msg">Los datos se han guardado correctamente</p>
+                        <p class="text-danger invisible" id="error-msg">Error guardando los datos!</p>
                     </div>
                 </form>
             </div>
