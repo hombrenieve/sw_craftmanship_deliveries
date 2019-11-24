@@ -3,7 +3,6 @@ function editList(originalData) {
     emptyWindow();
     let editList = new EditList(originalData);
     editList.show();
-    EditList.checkForm();
 }
 
 function editListById(id, onSuccess) {
@@ -25,9 +24,11 @@ function newList() {
 
 class EditList {
     constructor(data) {
-        this.form = getTemplate('#listEditFormTemplate');
-        $('#listName', this.form).keyup(() => EditList.checkForm());
-        $('#addItemButton', this.form).click(() => EditList.addItem());
+        let template = getTemplate('#listEditFormTemplate');
+        this.form = template.firstElementChild;
+        let objThis = this;
+        $('#listName', this.form).keyup(() => objThis.checkForm());
+        $('#addItemButton', this.form).click(() => objThis.addItem());
         $('#saveList', this.form).click(sendList);
         if(data) {
             $('#deleteList', this.form).click(() => EditList.deleteList(data.id));
@@ -36,6 +37,7 @@ class EditList {
         } else {
             $('#deleteList', this.form).prop('disabled', true);
             $('#cancelList', this.form).click(() => location.href='/');
+            this.addItem();
         }
     }
 
@@ -51,18 +53,19 @@ class EditList {
         $('#listId', this.form).val(data.id);
         let objThis = this;
         data.products.forEach(function (product) {
-            let element = EditList.createEmptyItem();
+            let element = objThis.createEmptyItem();
             EditList.fillInElement(element, product);
             $('#newElementsArea', objThis.form).append(element);
         });
     }
 
-    static createEmptyItem() {
+    createEmptyItem() {
         let newElement = getTemplate('#listEditElementTemplate');
         let item = newElement.firstElementChild;
-        $('button', newElement).click(() => EditList.deleteItem(item));
+        let objThis = this;
+        $('button', newElement).click(() => objThis.deleteItem(item));
         $('.listCheckbox', newElement).change(() => EditList.checkedItem(item));
-        $('.listElement', newElement).keyup(() => EditList.checkForm());
+        $('.listElement', newElement).keyup(() => objThis.checkForm());
         return newElement;
     }
 
@@ -74,9 +77,9 @@ class EditList {
         }
     }
 
-    static deleteItem(item) {
+    deleteItem(item) {
         $(item).remove();
-        EditList.checkForm();
+        this.checkForm();
     }
 
     static deleteList(id) {
@@ -93,23 +96,24 @@ class EditList {
         }
     }
 
-    static addItem() {
+    addItem() {
         let newElement = this.createEmptyItem();
-        $('#newElementsArea').append(newElement);
-        EditList.checkForm();
+        $('#newElementsArea', this.form).append(newElement);
+        this.checkForm();
     }
 
     show() {
         $('#listArea').append(this.form);
+        this.checkForm();
     }
 
 
-    static isValidForm() {
-        if ($('#listName').val() == "") {
+    isValidForm() {
+        if ($('#listName', this.form).val() == "") {
             return false;
         }
         let inValid = false;
-        $('.listElement').each(function () {
+        $('.listElement', this.form).each(function () {
             if ($(this).val() == "") {
                 inValid = true;
                 return false;
@@ -118,8 +122,8 @@ class EditList {
         return !inValid;
     }
 
-    static checkForm() {
-        $('#saveList').prop('disabled', !EditList.isValidForm());
+    checkForm() {
+        $('#saveList', this.form).prop('disabled', !this.isValidForm());
     }
 
     static getJson() {
@@ -142,6 +146,8 @@ class EditList {
             'products': products
         };
     }
+
+
 }
 
 function sendList() {
