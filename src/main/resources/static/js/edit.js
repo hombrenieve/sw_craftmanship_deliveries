@@ -42,6 +42,7 @@ class EditList {
    static fillInElement(element, product) {
         $('.listElement', element).val(product.name);
         $('.listCheckbox', element).prop('checked', product.mark);
+        EditList.checkedItem(element);
         $('.elemId', element).val(product.id);
     }
 
@@ -60,8 +61,17 @@ class EditList {
         let newElement = getTemplate('#listEditElementTemplate');
         let item = newElement.firstElementChild;
         $('button', newElement).click(() => EditList.deleteItem(item));
+        $('.listCheckbox', newElement).change(() => EditList.checkedItem(item));
         $('.listElement', newElement).keyup(() => EditList.checkForm());
         return newElement;
+    }
+
+    static checkedItem(item) {
+        if($(".listCheckbox", item).prop('checked')) {
+            $(".listElement", item).css("text-decoration", "line-through");
+        } else {
+            $(".listElement", item).css("text-decoration", "none");
+        }
     }
 
     static deleteItem(item) {
