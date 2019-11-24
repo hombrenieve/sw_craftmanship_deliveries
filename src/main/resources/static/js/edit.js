@@ -124,6 +124,16 @@ class EditList {
 
     checkForm() {
         $('#saveList', this.form).prop('disabled', !this.isValidForm());
+        this.checkElements();
+    }
+
+    checkElements() {
+        let elements = $('.listElementGroup', this.form);
+        if(elements.length == 1) {
+            $('button', elements).addClass('invisible');
+        } else if(elements.length == 2) {
+            $('button', elements[0]).removeClass('invisible');
+        }
     }
 
     static getJson() {
@@ -146,8 +156,6 @@ class EditList {
             'products': products
         };
     }
-
-
 }
 
 function sendList() {
