@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.hombrenieve</groupId>
-    <artifactId>ShoppingList</artifactId>
+    <artifactId>pablo.rebaque</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ShoppingList</name>
     <description>SW Craftsmanship Web Architecture practice</description>
